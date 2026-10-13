@@ -87,6 +87,12 @@ Pull Bot 会反复触发无效的 PR 和垃圾邮件，严重干扰项目维护�
 6. 可选：在"Settings" > "Environment Variables"中配置密码保护
 
 
+### Netlify 密钥扫描
+
+在 Netlify 项目的环境变量设置中管理 `PASSWORD`，不要将实际密码写入仓库或构建输出。建议使用随机生成的强密码，避免短密码与公开代码片段产生匹配。
+
+`netlify.toml` 仅将 `libs/sha256.min.js` 和 `libs/tailwindcss.min.js` 排除在密钥扫描之外，因为这两个第三方库中的公开十六进制字符表触发了误报。其他文件的密钥扫描仍然启用；不要关闭全局扫描或排除整个 `PASSWORD` 变量。如果部署仍然失败，请根据日志报告的文件路径和行号检查新的匹配，不要直接扩大排除范围。更新这些库时，请重新检查排除是否仍然必要。
+
 ### Docker
 
 使用 Docker 运行 LibreTV：
